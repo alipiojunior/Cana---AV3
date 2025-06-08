@@ -9,7 +9,7 @@ import knighttour.KnightTour;
 import subsetsumbruteforce.SubsetSumBruteForce;
 import subsetsumbacktracking.SubsetSumBacktracking;
 import beachhouselibrary.BeachHouseLibrary;
-import travellingsalesman.TravellingSalesman;
+import travellingsalesman.TravelingSalesmanBruteForce;
 
 public class Main {
 
@@ -64,7 +64,7 @@ public class Main {
                     BeachHouseLibrary.run();
                     break;
                 case 10:
-                    TravellingSalesman.run();
+                    TravelingSalesmanBruteForce.run();
                     break;
                 case 0:
                     System.out.println("Saindo...");
