@@ -30,11 +30,9 @@ public class TravelingSalesmanBruteForce {
     private static double menorDistanciaOtimizada = Double.MAX_VALUE;
     private static List<Cidade> melhorRotaOtimizada = null;
 
-    // NOVO MÉTODO RUN PARA SER CHAMADO DO MAIN
     public static void run() {
         System.out.println("\n--- Problema do Caixeiro-Viajante (Força Bruta) ---");
 
-        // Limpa as listas e variáveis estáticas para garantir que não haja resíduos de execuções anteriores
         listaCoordenadas.clear();
         menorDistanciaOtimizada = Double.MAX_VALUE;
         melhorRotaOtimizada = null;
@@ -69,12 +67,12 @@ public class TravelingSalesmanBruteForce {
         if (melhorRotaOtimizada != null) {
             System.out.println("A melhor rota é:");
             for (Cidade cidade : melhorRotaOtimizada) {
-                System.out.print(cidade.nome); // Imprime o nome da cidade
+                System.out.print(cidade.nome); 
                 if (melhorRotaOtimizada.indexOf(cidade) < melhorRotaOtimizada.size() - 1) {
                     System.out.print(" -> ");
                 }
             }
-            System.out.println(" -> " + caixeiro.nome); // Retorno à cidade de origem
+            System.out.println(" -> " + caixeiro.nome); 
             System.out.println("Com distância total de: " + String.format("%.2f", Math.sqrt(menorDistanciaOtimizada)));
         } else {
             System.out.println("Nenhuma rota encontrada.");
@@ -114,11 +112,6 @@ public class TravelingSalesmanBruteForce {
             Cidade nextCity = remainingCities.get(i);
 
             double distanceToNext = calcularEuclidesQuadrado(currentTour.get(currentTour.size() - 1), nextCity);
-
-            // Não mostrar o "Tentando ir de" para cada sub-tentativa recursiva, pois fica muito verboso.
-            // A exibição da rota avaliada já faz isso.
-            // System.out.println("Tentando ir de " + currentTour.get(currentTour.size() - 1).nome + " para " + nextCity.nome + ". Distância (quadrado): " + String.format("%.2f", distanceToNext));
-
 
             List<Cidade> newRemainingCities = new ArrayList<>(remainingCities);
             newRemainingCities.remove(i);
