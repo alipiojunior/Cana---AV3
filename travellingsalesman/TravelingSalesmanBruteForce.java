@@ -2,10 +2,7 @@
 package travellingsalesman;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 class Cidade {
     String nome;
@@ -31,8 +28,6 @@ public class TravelingSalesmanBruteForce {
     private static List<Cidade> melhorRotaOtimizada = null;
 
     public static void run() {
-        System.out.println("\n--- Problema do Caixeiro-Viajante (Força Bruta) ---");
-
         listaCoordenadas.clear();
         menorDistanciaOtimizada = Double.MAX_VALUE;
         melhorRotaOtimizada = null;
@@ -48,37 +43,28 @@ public class TravelingSalesmanBruteForce {
         listaCoordenadas.add(new Cidade("H", 1, 3));
         listaCoordenadas.add(new Cidade("I", 2, 3));
 
-        System.out.println("Cidades disponíveis:");
-        for (Cidade city : listaCoordenadas) {
-            System.out.println("- " + city.nome + " (" + city.x + ", " + city.y + ")");
-        }
-
-
         Cidade caixeiro = listaCoordenadas.get(0);
         List<Cidade> outrasCidades = new ArrayList<>(listaCoordenadas.subList(1, listaCoordenadas.size()));
 
         List<Cidade> currentRoute = new ArrayList<>();
         currentRoute.add(caixeiro);
 
-        System.out.println("\n--- Gerando e Avaliando Rotas ---");
         findBestRoute(caixeiro, outrasCidades, currentRoute, 0.0);
 
-        System.out.println("\n--- Resultado Final ---");
         if (melhorRotaOtimizada != null) {
             System.out.println("A melhor rota é:");
             for (Cidade cidade : melhorRotaOtimizada) {
-                System.out.print(cidade.nome); 
+                System.out.print(cidade.nome);
                 if (melhorRotaOtimizada.indexOf(cidade) < melhorRotaOtimizada.size() - 1) {
                     System.out.print(" -> ");
                 }
             }
-            System.out.println(" -> " + caixeiro.nome); 
+            System.out.println(" -> " + caixeiro.nome);
             System.out.println("Com distância total de: " + String.format("%.2f", Math.sqrt(menorDistanciaOtimizada)));
         } else {
             System.out.println("Nenhuma rota encontrada.");
         }
     }
-
 
     private static double calcularEuclidesQuadrado(Cidade c1, Cidade c2) {
         double dx = c1.x - c2.x;
@@ -90,27 +76,15 @@ public class TravelingSalesmanBruteForce {
         if (remainingCities.isEmpty()) {
             currentDistanceSquared += calcularEuclidesQuadrado(currentTour.get(currentTour.size() - 1), startCity);
 
-            System.out.print("Rota avaliada: ");
-            for (int i = 0; i < currentTour.size(); i++) {
-                System.out.print(currentTour.get(i).nome);
-                if (i < currentTour.size() - 1) {
-                    System.out.print(" -> ");
-                }
-            }
-            System.out.println(" -> " + startCity.nome);
-            System.out.println("Distância total desta rota (quadrado): " + String.format("%.2f", currentDistanceSquared)); // Exibe o quadrado aqui
-
             if (currentDistanceSquared < menorDistanciaOtimizada) {
                 menorDistanciaOtimizada = currentDistanceSquared;
                 melhorRotaOtimizada = new ArrayList<>(currentTour);
-                System.out.println(">>>> NOVA MELHOR ROTA ENCONTRADA! Distância (quadrado): " + String.format("%.2f", menorDistanciaOtimizada));
             }
             return;
         }
 
         for (int i = 0; i < remainingCities.size(); i++) {
             Cidade nextCity = remainingCities.get(i);
-
             double distanceToNext = calcularEuclidesQuadrado(currentTour.get(currentTour.size() - 1), nextCity);
 
             List<Cidade> newRemainingCities = new ArrayList<>(remainingCities);
