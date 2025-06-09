@@ -16,14 +16,12 @@ public class EightQueens {
         // Complexidade de Tempo: O(N!) no pior caso, mas com podas é mais eficiente.
         // Complexidade de Espaço: O(N) para a pilha de recursão e o array 'board'.
 
-        // Caso base: se todas as rainhas foram colocadas (chegou após a última linha)
         if (row == BOARD_SIZE) {
             System.out.println("Solução encontrada:");
             printBoard(); 
-            return true; // Retorna true para indicar que uma solução foi encontrada
+            return true; 
         }
 
-        // Tenta colocar a rainha na linha atual (row) em cada coluna possível (col)
         for (int col = 0; col < BOARD_SIZE; col++) { 
             if (isSafe(row, col)) { 
                 board[row] = col; 
@@ -40,18 +38,15 @@ public class EightQueens {
         // Complexidade de Tempo: O(row), pois itera pelas rainhas já colocadas.
         // Complexidade de Espaço: O(1)
 
-        // Verifica as rainhas nas linhas anteriores (0 a row-1)
         for (int i = 0; i < row; i++) {
             if (board[i] == col) {
                 return false; 
             }
-            // Verifica se há outra rainha na mesma diagonal principal (linha - coluna constante)
-            // ou diagonal secundária (linha + coluna constante)
             if (Math.abs(row - i) == Math.abs(col - board[i])) {
                 return false; 
             }
         }
-        return true; // É seguro colocar a rainha aqui
+        return true; 
     }
 
     private static void printBoard() {
